@@ -21,7 +21,7 @@ Javascript scope is key to understanding how variables and functions are defined
 Let's first note what the english meaning of scope is according to [Merriam-Webster](https://www.merriam-webster.com/dictionary/scope). There are 2 listed definitions that are apt for our discussion:
 
 > - space or opportunity for unhampered motion, activity, or thought
-- extent of treatment, activity, or influence
+> - extent of treatment, activity, or influence
 
 Let's compare that to [MDN's definition of scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope):
 
