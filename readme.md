@@ -86,9 +86,9 @@ console.log(name); // errors
 
 ### Block scope
 
-With the introduction of es6, we know have access to the `const` and `let` keywords. Variables instantiated with these keywords have block scope. Scope contained within `{}`.
+With the introduction of es6, we now have access to the `const` and `let` keywords. Variables instantiated with these keywords have block scope. Scope contained within `{}`.
 
-[According to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block) JS levered block statements "to group zero or more statements. The block is delimited by a pair of curly brackets". We've actually written blocks all the time, any time we write a for loop or a if statement, they are usually followed by some block. Here's a simple block statement:
+[According to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block) JS leverages block statements "to group zero or more statements. The block is delimited by a pair of curly brackets". We've actually written blocks all the time, any time we write a for loop or a if statement, they are usually followed by some block. Here's a simple block statement:
 
 ```js
 {
@@ -130,7 +130,7 @@ console.log(j); // prints 10, using var creates local scope, ie not scoped to th
 In english we use pronouns to circumvent redundancy. Say we write the following:
 
 ```
-They are trying to catch the train."
+"They are trying to catch the train."
 ```
 
 This sentence makes some sense by itself, but we really only know that some group of people are trying to catch a train.
@@ -245,11 +245,11 @@ Now run this code in [codepen](TODO: get codepen)
 
 </details>
 
-### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) and [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
 
-We can also explicitly set the value of `this` inside functions using `.call`, `.apply`.
+We can also explicitly set the value of `this` inside functions using `.call` and `.apply`.
 
-`.call` and `.apply` are functionally equivalent. They both invoke the function that `.call` is invoked on with an explicit context. One requires you to pass in multiple arguments(`.call`) the other makes you pass in the arguments as an array(`.apply`).
+`.call` and `.apply` are functionally equivalent. They both invoke the function that these functions are invoked on with an explicit context. One requires you to pass in multiple arguments(`.call`) the other makes you pass in the arguments as an array(`.apply`).
 
 We'll be using `.call` in these examples for brevity but know that we could just as easily use `.apply`. Let's revisit the `logThis` function but "call" it with an explicit context
 
@@ -308,7 +308,7 @@ newLogFunctionWithExplicitContext()
 
 ### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
-Arrow functions have lexical binding. This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword.
+Arrow functions have lexical binding. This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword. Instead they gets their value for `this` from a parent scope.
 
 Let's take a look at an example to help highlight this:
 
@@ -367,4 +367,4 @@ We know from earlier in this lesson that `this` in both instances outside of the
 
 We know from earlier in the lesson, that functions like `setInterval` and `setTimeout` bind `this` to the window. However, in an arrow function `this` isn't bound at all. Instead it follows the rules of scope.
 
-Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this`.
+Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this` for the arrow function.
