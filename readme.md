@@ -66,7 +66,7 @@ someFunc() // assigns 'some other string' to anotherGlobalVariable
 console.log(anotherGlobalVariable) // prints 'some other string'
 ```
 
-> the above code fails when it tries to log `anotherGlobalVariable` the first time, therefore the rest of the code won't execute as a result. The comments that follow the subsequent lines assumes removing the erroring lines of code. Other snippets in this lesson will follow this pattern for brevity, but be aware that code execution will stop after the error occurs.
+> the above code fails when it tries to log `anotherGlobalVariable` the first time, therefore the rest of the code won't execute as a result. The comments that follow the subsequent lines assumes removing the lines of code that error. Other snippets in this lesson will follow this pattern for brevity, but be aware that code execution will stop after the error occurs.
 
 One thing to note is whether we define a global variable through a declaration keyword or without. [It's generally bad practice.](http://wiki.c2.com/?GlobalVariablesAreBad) Additionally, as a general rule of thumb, we should only use no declaration assignments(without `let`, `const`, `var`) for reassignment only.
 
@@ -210,7 +210,7 @@ person.loggingThisFromPersonObject()
 
 This brings us to a general rule of thumb for context.
 
-In general, `this` is whatever was to the left of the period when it was called, unless...let's check out some code.
+In general, `this` is whatever was to the left of the period when it was called, unless...
 
 ### You do
 
@@ -241,6 +241,8 @@ Now run this code in [codepen](TODO: get codepen)
   <br>
   <li>We're in an event listener function, in which case `this` is the thing that the listener is attached to.</li>
   <li>We're in another callback function(`setTimeout`, `setInterval` etc.), in which case `this` is probably the Window.</li>
+  <li>`setTimeout` and `setInterval` are defined on the `window` object. When called with a normal function `this` is always the `window`.</li>
+
 </details>
 
 ### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
@@ -286,7 +288,7 @@ The `.call` function takes at any number of optional arguments. The first option
 
 `.bind` works a bit differently but in the same vein as `.call` and `.apply`. `.bind` returns a function that has it's context set explicitly.
 
-```
+```js
 function logThisWithStrings(str1, str2) {
   console.log(this);
   console.log(str1, str2);
@@ -303,3 +305,66 @@ newLogFunctionWithExplicitContext()
 // {name: 'bob'}
 // This is how bind works
 ```
+
+### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
+Arrow functions have lexical binding. This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword.
+
+Let's take a look at an example to help highlight this:
+
+```js
+function callSetTimeoutWithNormalFunction() {
+  console.log('this outside the timeout in a normal function: ', this);
+  setTimeout(function() {
+    console.log('this in a normal function: ', this)
+  }, 0)
+}
+
+function callSetTimeoutWithArrowFunction() {
+  console.log('this outside the timeout in an arrow function: ', this);
+  setTimeout(() => {
+    console.log('this in a arrow function: ', this)
+  }, 0)
+}
+
+callSetTimeoutWithNormalFunction();
+callSetTimeoutWithArrowFunction();
+```
+
+When calling these in a global name space, nothing is different with respect to the value of `this` in either invocation. But let's combine our knowledge of scope and context together by looking at this next example:
+
+
+```js
+function callSetTimeoutWithNormalFunction() {
+  console.log('this outside the timeout in a normal function: ', this);
+  setTimeout(function() {
+    console.log('this in a normal function: ', this)
+  }, 0)
+}
+
+function callSetTimeoutWithArrowFunction() {
+  console.log('this outside the timeout in an arrow function: ', this);
+  setTimeout(() => {
+    console.log('this in a arrow function: ', this)
+  }, 0)
+}
+
+const someObjWithNormalTimeout = {
+  type: 'normal',
+  callTimeout: callSetTimeoutWithNormalFunction,
+}
+
+const someObjWithArrowTimeout = {
+  type: 'arrow',
+  callTimeout: callSetTimeoutWithArrowFunction,
+}
+
+someObjWithNormalTimeout.callTimeout();
+someObjWithArrowTimeout.callTimeout();
+```
+
+We know from earlier in this lesson that `this` in both instances outside of the timeout will be the object that it is called on. However, we see that the value of `this` is different depending on whether we use a normal function or an arrow function.
+
+We know from earlier in the lesson, that functions like `setInterval` and `setTimeout` bind `this` to the window. However, in an arrow function `this` isn't bound at all. Instead it follows the rules of scope.
+
+Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this`.
