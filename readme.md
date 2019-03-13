@@ -170,6 +170,8 @@ Work in groups to fill out the chart.
 
 > There are some answers that have to do with hoisting, in which case what you may think as an error is actually undefined instead. We didn't go over hoisting in this class so don't worry too much about this discrepancy.
 
+[Here's the answer key](https://docs.google.com/spreadsheets/d/1yf_taUnu40eoSZqqOZ8b_lu56LFOMrXfId1tywtLnPE/edit?usp=sharing)
+
 ## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (5/36)
 
 In english we use pronouns to circumvent redundancy. Say we write the following:

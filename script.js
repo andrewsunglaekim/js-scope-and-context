@@ -4,6 +4,14 @@
   let name2 = 'Bob';
 }
 /* A */
+console.log(name);
+console.log(name1);
+console.log(name2);
+console.log(i);
+console.log(j);
+console.log(k);
+console.log(m);
+console.log(n);
 function func1() {
   name = 'Tom';
   let j = 0;
@@ -27,11 +35,3 @@ function func1() {
 /* E */
 func1()
 /* F */
-console.log(name);
-// console.log(name1);
-// console.log(name2);
-// console.log(i);
-// console.log(j);
-// console.log(k);
-console.log(m);
-console.log(n);
