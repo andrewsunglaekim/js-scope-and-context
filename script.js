@@ -1,29 +1,37 @@
-function callSetTimeoutWithNormalFunction() {
-  console.log('this outside the timeout in a normal function: ', this);
-  setTimeout(function() {
-    console.log('this in a normal function: ', this)
-  }, 0)
+{
+  var name = 'America';
+  const name1 = 'Ruby';
+  let name2 = 'Bob';
 }
-
-function callSetTimeoutWithArrowFunction() {
-  console.log('this outside the timeout in an arrow function: ', this);
-  setTimeout(() => {
-    console.log('this in a arrow function: ', this)
-  }, 0)
+/* A */
+function func1() {
+  name = 'Tom';
+  let j = 0;
+  let k = 0;
+  /* B */
+  for (var i = 0; i < 10; i++) {
+    var name1 = 'Mary';
+    let j = 5;
+    let k = 5;
+    m = 11;
+  }
+  /* C */
+  for (let k = 0; k < 10; k++) {
+    let name2= 'Sue';
+    j++;
+    var i = 15;
+    n = 15;
+  }
+  /* D */
 }
-
-const someObjWithArrowTimeout = {
-  type: 'arrow',
-  callTimeout: callSetTimeoutWithArrowFunction,
-}
-
-const someObjWithNormalTimeout = {
-  type: 'normal',
-  callTimeout: callSetTimeoutWithNormalFunction,
-}
-
-someObjWithArrowTimeout.callTimeout();
-someObjWithNormalTimeout.callTimeout();
-debugger
-"bob"
-this
+/* E */
+func1()
+/* F */
+console.log(name);
+// console.log(name1);
+// console.log(name2);
+// console.log(i);
+// console.log(j);
+// console.log(k);
+console.log(m);
+console.log(n);

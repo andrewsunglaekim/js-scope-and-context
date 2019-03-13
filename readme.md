@@ -69,7 +69,7 @@ console.log(anotherGlobalVariable) // prints 'some other string'
 
 > the above code fails when it tries to log `anotherGlobalVariable` the first time, therefore the rest of the code won't execute as a result. The comments that follow the subsequent lines assumes removing the lines of code that error. Other snippets in this lesson will follow this pattern for brevity, but be aware that code execution will stop after the error occurs.
 
-One thing to note is whether we define a global variable through a declaration keyword or without. [It's generally bad practice.](http://wiki.c2.com/?GlobalVariablesAreBad) Additionally, as a general rule of thumb, we should only use no declaration assignments(without `let`, `const`, `var`) for reassignment only.
+One thing to note is whether we define a global variable through a declaration keyword or without. [It's generally bad practice.](http://wiki.c2.com/?GlobalVariablesAreBad) Additionally, as a general rule of thumb, we should only use `=` assignment operators without `let`, `const`, `var` for reassignment only.
 
 ### Local scope (3/16)
 
@@ -167,6 +167,8 @@ For each intersection of variable and letter. Assign a value that you think it w
 Work in groups to fill out the chart.
 
 > No value or what would cause an error if referenced can be an answer for these questions as well.
+
+> There are some answers that have to do with hoisting, in which case what you may think as an error is actually undefined instead. We didn't go over hoisting in this class so don't worry too much about this discrepancy.
 
 ## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (5/36)
 
