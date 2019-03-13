@@ -414,7 +414,7 @@ We know from earlier in the lesson, that functions like `setInterval` and `setTi
 
 Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this` for the arrow function.
 
-## `console.log` / `debugger` (2/67)
+## USE `console.log` / `debugger` (2/67)
 
 If nothing else was gathered from this lesson, let remember that we can always just look at `this`.
 
