@@ -24,3 +24,6 @@ const someObjWithNormalTimeout = {
 
 someObjWithArrowTimeout.callTimeout();
 someObjWithNormalTimeout.callTimeout();
+debugger
+"bob"
+this

@@ -1,22 +1,22 @@
-# JS Scope and Context
+# JS Scope and Context (1/1)
 
 In this class we'll dive into scope and context. We'll see the importance of how and where variable assignment occurs in the JS ecosystem. We'll also learn about context and the value of `this`. A full understanding of these concepts will help create better foundations for our javascript code as well as increase our efficiencies in debugging.
 
-## Learning Objectives
+## Learning Objectives (2/3)
 - Describe scope and how it governs how data is able to be accessed in code
 - Differentiate between `var`, `let`, and `const` keywords in variable assignment
 - Differentiate between global, local, and block scope
-- Identify some benefits of closures in javascript
-- Explain Javascript 'context' and what the value of the 'this' keyword refers to
+- Explain Javascript context and how the value of the 'this' is derived
 - Explain the default context of Javascript executing in the browser
 - Use `.call`, `.apply`, `.bind` to explicitly set context
+- Explain how "lexical binding" works with arrow functions
 - Use `console.log(this)`
 
-## Scope
+## Scope (1/4)
 
 Javascript scope is key to understanding how variables and functions are defined and accessed. A strong understanding of JS scope allows us to write code faster while also writing more maintainable code. Additionally, a strong understanding of scope allows developers to debug more rapidly.
 
-##  What is scope?
+##  What is scope? (5/9)
 
 Let's first note what the english meaning of scope is according to [Merriam-Webster](https://www.merriam-webster.com/dictionary/scope). There are 2 listed definitions that are apt for our discussion:
 
@@ -31,10 +31,11 @@ In simpler terms, scope is:
 
 - Where a variable can be referenced or used.
 - a list of all variables that can be accessed from a specific line of code.
+- a chain of lookups to see if a variable has a value
 
 Something to note here. MDN is usually really great in terms of documentation. However, here, there's a bit of conflation with regard to how the word "context" is used. In the above definition, "context of execution" is really "execution context" which ultimately is scope. We'll be talking about context later in this lesson with regard to the `this` keyword. The context we'll be discussing later is disparate from "context of execution" that is being defined here. Execution context defined here is referring to scope.
 
-## Types of scope
+## Types of scope (1/10)
 
 With the introduction of es6, javascript has 3 different types of scope:
 
@@ -42,7 +43,7 @@ With the introduction of es6, javascript has 3 different types of scope:
 - local/function scope
 - block scope
 
-### Global scope
+### Global scope (3/13)
 
 There are a couple different ways to instantiate a variable in the global scope.
 
@@ -70,7 +71,7 @@ console.log(anotherGlobalVariable) // prints 'some other string'
 
 One thing to note is whether we define a global variable through a declaration keyword or without. [It's generally bad practice.](http://wiki.c2.com/?GlobalVariablesAreBad) Additionally, as a general rule of thumb, we should only use no declaration assignments(without `let`, `const`, `var`) for reassignment only.
 
-### Local scope
+### Local scope (3/16)
 
 Otherwise known as function scope. Functions in javascript serve as closures. This creates a local scope that is bound to that function. That is to say, variables assigned with any declaration keyword within a function are only accessible inside of that function. Example:
 
@@ -84,11 +85,11 @@ someFunc()
 console.log(name); // errors
 ```
 
-### Block scope
+### Block scope (5/21)
 
 With the introduction of es6, we now have access to the `const` and `let` keywords. Variables instantiated with these keywords have block scope. Scope contained within `{}`.
 
-[According to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block) JS leverages block statements "to group zero or more statements. The block is delimited by a pair of curly brackets". We've actually written blocks all the time, any time we write a for loop or a if statement, they are usually followed by some block. Here's a simple block statement:
+[According to MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block) JS leverages block statements "to group zero or more statements. The block is delimited by a pair of curly brackets". We write blocks all the time, any time we write a `for` loop or an `if` statement, they are usually followed by some block. Here's a simple block statement:
 
 ```js
 {
@@ -123,9 +124,51 @@ console.log(j); // prints 10, using var creates local scope, ie not scoped to th
 
 `if`, `else if`, `else` and `switch` statements all use blocks as well.
 
-******Insert scope exercise here.******
+## You do - Scope Exercise(5/26)
 
-## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+Review the follow code for 1 minute:
+
+```js
+{
+  var name = 'America';
+  const name1 = 'Ruby';
+  let name2 = 'Bob';
+}
+/* A */
+function func1() {
+  name = 'Tom';
+  let j = 0;
+  let k = 0;
+  /* B */
+  for (var i = 0; i < 10; i++) {
+    var name1 = 'Mary';
+    let j = 5;
+    let k = 5;
+    m = 11;
+  }
+  /* C */
+  for (let k = 0; k < 10; k++) {
+    let name2= 'Sue';
+    j++;
+    var i = 15;
+    n = 15;
+  }
+  /* D */
+}
+/* E */
+func1()
+/* F */
+```
+
+Go to this [google spreadsheet](https://docs.google.com/spreadsheets/d/11s0YzqyXvUVeusRQjmHUzWy-55tEq9qPOF56bVpgD9w/edit?usp=sharing). Copy and paste it into your own sheet so that you can edit it.
+
+For each intersection of variable and letter. Assign a value that you think it would have at that given point in the code.
+
+Work in groups to fill out the chart.
+
+> No value or what would cause an error if referenced can be an answer for these questions as well.
+
+## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (5/31)
 
 In english we use pronouns to circumvent redundancy. Say we write the following:
 
@@ -153,7 +196,7 @@ It's really important to understand this sentence, so we'll just reiterate it he
 
 That context is always an object, and can be referenced in the function definition (code) using a special keyword in JS, `this`.
 
-### [Global context ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context)
+### [Global context ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context) (2/33)
 
 In the browser's global execution context(scope), `this`(context) is the `window` object. [MDN's code snippet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context) does a great job depicting this:
 
@@ -169,7 +212,7 @@ console.log(window.b)  // "MDN"
 console.log(b)         // "MDN"
 ```
 
-### [Function Context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context)
+### [Function Context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context) (5/38)
 
 > Note the first part of this will deal exclusively on functions that are created with the `function` keyword **not** arrow functions. We'll have a dedicated section to arrow functions afterward.
 
@@ -208,11 +251,11 @@ person.loggingThisFromPersonObject()
 // {name: 'mary', loggingThisFromPersonObject: f()}
 ```
 
-This brings us to a general rule of thumb for context.
+Again, we want to stress here the importance of how each of these functions were called rather than how it was defined. This brings us to a general rule of thumb for context.
 
 In general, `this` is whatever was to the left of the period when it was called, unless...
 
-### You do
+### You do (5/43)
 
 In groups, try to determine what the two values of `this` will be in the following code.
 
@@ -245,7 +288,7 @@ Now run this code in [codepen](TODO: get codepen)
 
 </details>
 
-### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) and [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) and [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)(7/50)
 
 We can also explicitly set the value of `this` inside functions using `.call` and `.apply`.
 
@@ -284,7 +327,7 @@ logThisWithStrings.call(theExplicitContextObject, 'This is how', 'call works');
 
 The `.call` function takes at any number of optional arguments. The first optional argument is always the explicit context we want to set. The remaining arguments map to the arguments of the function being `.call`'ed
 
-### Setting `this` with [`.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+### Setting `this` with [`.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)(5/55)
 
 `.bind` works a bit differently but in the same vein as `.call` and `.apply`. `.bind` returns a function that has it's context set explicitly.
 
@@ -306,7 +349,7 @@ newLogFunctionWithExplicitContext()
 // This is how bind works
 ```
 
-### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)(5/60)
 
 Arrow functions have lexical binding. This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword. Instead they gets their value for `this` from a parent scope.
 
@@ -368,3 +411,19 @@ We know from earlier in this lesson that `this` in both instances outside of the
 We know from earlier in the lesson, that functions like `setInterval` and `setTimeout` bind `this` to the window. However, in an arrow function `this` isn't bound at all. Instead it follows the rules of scope.
 
 Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this` for the arrow function.
+
+## You do - Context Exercise(10/70)
+
+## `console.log` / `debugger` (2/72)
+
+If nothing else was gathered from this lesson, let remember that we can always just look at `this`.
+
+```
+// just log it
+console.log(this)
+
+// leverage debugger
+debugger
+```
+
+"This" is probably the best take away from the lesson.
