@@ -124,7 +124,7 @@ console.log(j); // prints 10, using var creates local scope, ie not scoped to th
 
 `if`, `else if`, `else` and `switch` statements all use blocks as well.
 
-## You do - Scope Exercise(5/26)
+## You do - Scope Exercise(10/26)
 
 Review the follow code for 1 minute:
 
@@ -269,22 +269,22 @@ js:
 const button = document.getElementById('test');
 button.addEventListener('click' , function() {
   console.log(this);
-  setTimout(function() {
+  setTimeout(function() {
     console.log(this);
   }, 500)
 })
 ```
 
-Now run this code in [codepen](TODO: get codepen)
+Check this [codepen](https://codepen.io/rv-akim/pen/rRYvoJ?editors=1010) after you determine your groups answers.
 
 <details>
   <summary>
     These's are the the gotcha's
   </summary>
   <br>
-  <li>We're in an event listener function, in which case `this` is the thing that the listener is attached to.</li>
-  <li>We're in another callback function(`setTimeout`, `setInterval` etc.), in which case `this` is probably the Window.</li>
-  <li>`setTimeout` and `setInterval` are defined on the `window` object. When called with a normal function `this` is always the `window`.</li>
+  <li>We're in an event listener function, in which case <code>this</code> is the thing that the listener is attached to.</li>
+  <li>We're in another callback function(<code>setTimeout</code>, <code>setInterval</code> etc.), in which case <code>this</code> is probably the Window.</li>
+  <li><code>setTimeout</code> and <code>setInterval</code> are defined on the <code>window</code> object. When called with a normal function <code>this</code> is always the <code>window</code>.</li>
 
 </details>
 
