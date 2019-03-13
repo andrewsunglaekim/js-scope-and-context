@@ -124,7 +124,7 @@ console.log(j); // prints 10, using var creates local scope, ie not scoped to th
 
 `if`, `else if`, `else` and `switch` statements all use blocks as well.
 
-## You do - Scope Exercise(10/26)
+## You do - Scope Exercise(10/31)
 
 Review the follow code for 1 minute:
 
@@ -168,7 +168,7 @@ Work in groups to fill out the chart.
 
 > No value or what would cause an error if referenced can be an answer for these questions as well.
 
-## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (5/31)
+## [`this` (Context)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) (5/36)
 
 In english we use pronouns to circumvent redundancy. Say we write the following:
 
@@ -196,7 +196,7 @@ It's really important to understand this sentence, so we'll just reiterate it he
 
 That context is always an object, and can be referenced in the function definition (code) using a special keyword in JS, `this`.
 
-### [Global context ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context) (2/33)
+### [Global context ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context) (2/38)
 
 In the browser's global execution context(scope), `this`(context) is the `window` object. [MDN's code snippet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Global_context) does a great job depicting this:
 
@@ -212,7 +212,7 @@ console.log(window.b)  // "MDN"
 console.log(b)         // "MDN"
 ```
 
-### [Function Context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context) (5/38)
+### [Function Context](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context) (5/43)
 
 > Note the first part of this will deal exclusively on functions that are created with the `function` keyword **not** arrow functions. We'll have a dedicated section to arrow functions afterward.
 
@@ -255,7 +255,7 @@ Again, we want to stress here the importance of how each of these functions were
 
 In general, `this` is whatever was to the left of the period when it was called, unless...
 
-### You do (5/43)
+### You do (5/48)
 
 In groups, try to determine what the two values of `this` will be in the following code.
 
@@ -288,11 +288,13 @@ Check this [codepen](https://codepen.io/rv-akim/pen/rRYvoJ?editors=1010) after y
 
 </details>
 
-### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) and [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)(7/50)
+### Setting `this` with [`.call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) and [`.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)(7/55)
 
 We can also explicitly set the value of `this` inside functions using `.call` and `.apply`.
 
-`.call` and `.apply` are functionally equivalent. They both invoke the function that these functions are invoked on with an explicit context. One requires you to pass in multiple arguments(`.call`) the other makes you pass in the arguments as an array(`.apply`).
+`.call` and `.apply` are functionally equivalent. They are both prototype methods of the `Function` class in javascript. Meaning every function in javascript has a `call` and `apply` method.
+
+They both invoke the function they are called on with an explicit context. One requires you to pass in multiple arguments(`.call`) the other makes you pass in the arguments as an array(`.apply`).
 
 We'll be using `.call` in these examples for brevity but know that we could just as easily use `.apply`. Let's revisit the `logThis` function but "call" it with an explicit context
 
@@ -327,7 +329,7 @@ logThisWithStrings.call(theExplicitContextObject, 'This is how', 'call works');
 
 The `.call` function takes at any number of optional arguments. The first optional argument is always the explicit context we want to set. The remaining arguments map to the arguments of the function being `.call`'ed
 
-### Setting `this` with [`.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)(5/55)
+### Setting `this` with [`.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)(5/60)
 
 `.bind` works a bit differently but in the same vein as `.call` and `.apply`. `.bind` returns a function that has it's context set explicitly.
 
@@ -349,9 +351,9 @@ newLogFunctionWithExplicitContext()
 // This is how bind works
 ```
 
-### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)(5/60)
+### [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)(5/65)
 
-Arrow functions have lexical binding. This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword. Instead they gets their value for `this` from a parent scope.
+Arrow functions have "lexical binding". This is a bit of a misnomer. Arrow functions actually lack a binding to the `this` keyword. Instead they gets their value for `this` from a parent scope.
 
 Let's take a look at an example to help highlight this:
 
@@ -412,9 +414,7 @@ We know from earlier in the lesson, that functions like `setInterval` and `setTi
 
 Because it is not bound nor defined by the arrow function, it will look up it's value lexically(in a parent scope). It is defined in the parent function `callSetTimeoutWithArrowFunction` because that function does have a binding to `this`. Thereby deriving the value of `this` for the arrow function.
 
-## You do - Context Exercise(10/70)
-
-## `console.log` / `debugger` (2/72)
+## `console.log` / `debugger` (2/67)
 
 If nothing else was gathered from this lesson, let remember that we can always just look at `this`.
 
